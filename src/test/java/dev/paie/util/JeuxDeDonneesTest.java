@@ -1,10 +1,8 @@
 package dev.paie.util;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.stream.Stream;
 
 import org.junit.After;
 import org.junit.Before;
@@ -12,7 +10,6 @@ import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import dev.paie.entite.BulletinSalaire;
-import dev.paie.entite.Cotisation;
 
 public class JeuxDeDonneesTest {
 
