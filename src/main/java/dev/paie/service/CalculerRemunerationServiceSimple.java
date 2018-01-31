@@ -1,7 +1,9 @@
 package dev.paie.service;
 
 import java.math.BigDecimal;
+import java.util.stream.Stream;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import dev.paie.entite.BulletinSalaire;
@@ -12,11 +14,14 @@ import dev.paie.util.PaieUtils;
 @Component
 public class CalculerRemunerationServiceSimple implements CalculerRemunerationService {
 
+	@Autowired
+	private ResultatCalculRemuneration result;
+
+	@Autowired
+	PaieUtils paieUtils;
+
 	@Override
 	public ResultatCalculRemuneration calculer(BulletinSalaire bulletin) {
-		ResultatCalculRemuneration result = new ResultatCalculRemuneration();
-		PaieUtils paieUtils = new PaieUtils();
-		BigDecimal somme;
 
 		// SALAIRE_BASE = GRADE.NB_HEURES_BASE * GRADE.TAUX_BASE
 		result.setSalaireDeBase(paieUtils.formaterBigDecimal(bulletin.getRemunerationEmploye().getGrade()
@@ -28,28 +33,17 @@ public class CalculerRemunerationServiceSimple implements CalculerRemunerationSe
 
 		// TOTAL_RETENUE_SALARIALE =
 		// SOMME(COTISATION_NON_IMPOSABLE.TAUX_SALARIAL*SALAIRE_BRUT)
-		somme = new BigDecimal("0");
-		for (Cotisation cotNonImp : bulletin.getRemunerationEmploye().getProfilRemuneration()
-				.getCotisationsNonImposables()) {
-			BigDecimal tauxSalarial = cotNonImp.getTauxSalarial();
-			if (tauxSalarial != null) {
-				somme = somme.add(tauxSalarial.multiply(new BigDecimal(result.getSalaireBrut())));
-			}
-		}
-		result.setTotalRetenueSalarial(paieUtils.formaterBigDecimal(somme));
-
+		result.setTotalRetenueSalarial(paieUtils.formaterBigDecimal(bulletin.getRemunerationEmploye()
+				.getProfilRemuneration().getCotisationsNonImposables().stream().map(cot -> cot.getTauxSalarial())
+				.filter(taux -> taux != null).map(taux -> taux.multiply(new BigDecimal(result.getSalaireBrut())))
+				.reduce((t1, t2) -> t1.add(t2)).get()));
 
 		// TOTAL_COTISATIONS_PATRONALES =
 		// SOMME(COTISATION_NON_IMPOSABLE.TAUX_PATRONAL*SALAIRE_BRUT)
-		somme = new BigDecimal("0");
-		for (Cotisation cotNonImp : bulletin.getRemunerationEmploye().getProfilRemuneration()
-				.getCotisationsNonImposables()) {
-			BigDecimal tauxPatronal = cotNonImp.getTauxPatronal();
-			if (tauxPatronal != null) {
-				somme = somme.add(tauxPatronal.multiply(new BigDecimal(result.getSalaireBrut())));
-			}
-		}
-		result.setTotalCotisationsPatronales(paieUtils.formaterBigDecimal(somme));
+		result.setTotalCotisationsPatronales(paieUtils.formaterBigDecimal(bulletin.getRemunerationEmploye()
+				.getProfilRemuneration().getCotisationsNonImposables().stream().map(cot -> cot.getTauxPatronal())
+				.filter(taux -> taux != null).map(taux -> taux.multiply(new BigDecimal(result.getSalaireBrut())))
+				.reduce((t1, t2) -> t1.add(t2)).get()));
 
 		// NET_IMPOSABLE = SALAIRE_BRUT - TOTAL_RETENUE_SALARIALE
 		result.setNetImposable(paieUtils.formaterBigDecimal(
@@ -57,11 +51,11 @@ public class CalculerRemunerationServiceSimple implements CalculerRemunerationSe
 
 		// NET_A_PAYER = NET_IMPOSABLE -
 		// SOMME(COTISATION_IMPOSABLE.TAUX_SALARIAL*SALAIRE_BRUT)
-		somme = new BigDecimal("0");
-		for (Cotisation cotImp : bulletin.getRemunerationEmploye().getProfilRemuneration().getCotisationsImposables()) {
-			somme = somme.add(cotImp.getTauxSalarial().multiply(new BigDecimal(result.getSalaireBrut())));
-		}
-		result.setNetAPayer(paieUtils.formaterBigDecimal(new BigDecimal(result.getNetImposable()).subtract(somme)));
+		result.setNetAPayer(paieUtils.formaterBigDecimal(new BigDecimal(result.getNetImposable())
+				.subtract(bulletin.getRemunerationEmploye().getProfilRemuneration().getCotisationsImposables().stream()
+						.map(cot -> cot.getTauxSalarial()).filter(taux -> taux != null)
+						.map(taux -> taux.multiply(new BigDecimal(result.getSalaireBrut())))
+						.reduce((t1, t2) -> t1.add(t2)).get())));
 
 		return result;
 	}
