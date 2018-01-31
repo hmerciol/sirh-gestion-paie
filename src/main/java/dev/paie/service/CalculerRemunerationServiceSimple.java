@@ -1,13 +1,11 @@
 package dev.paie.service;
 
 import java.math.BigDecimal;
-import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import dev.paie.entite.BulletinSalaire;
-import dev.paie.entite.Cotisation;
 import dev.paie.entite.ResultatCalculRemuneration;
 import dev.paie.util.PaieUtils;
 
@@ -18,7 +16,7 @@ public class CalculerRemunerationServiceSimple implements CalculerRemunerationSe
 	private ResultatCalculRemuneration result;
 
 	@Autowired
-	PaieUtils paieUtils;
+	private PaieUtils paieUtils;
 
 	@Override
 	public ResultatCalculRemuneration calculer(BulletinSalaire bulletin) {
