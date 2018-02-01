@@ -32,7 +32,7 @@ public class GradeServiceJdbcTemplateTest {
 
 		// vérifier qu'il est possible de récupérer le nouveau grade via la méthode
 		// lister
-		assertThat(gradeService.lister()).filteredOn(gr -> gr.getId().equals(1)).first()
+		assertThat(gradeService.lister()).filteredOn(gr -> gr.getId().equals(grade.getId())).first()
 				.isEqualToComparingFieldByField(grade);
 
 		// modifier un grade
@@ -41,7 +41,7 @@ public class GradeServiceJdbcTemplateTest {
 
 		// vérifier que les modifications sont bien prises en compte via la méthode
 		// lister
-		assertThat(gradeService.lister()).filteredOn(gr -> gr.getId().equals(1))
+		assertThat(gradeService.lister()).filteredOn(gr -> gr.getId().equals(grade.getId()))
 				.extracting(gr -> gr.getNbHeuresBase()).contains(new BigDecimal("150.23"));
 		
 		gradeService.supprimer(grade);

@@ -24,7 +24,6 @@ public class CotisationServiceJpaTest {
 	public void test_sauvegarder_lister_mettre_a_jour() {
 		// sauvegarder une nouvelle cotisation
 		Cotisation cotisation = new Cotisation();
-		cotisation.setId(1);
 		cotisation.setCode("COT01");
 		cotisation.setLibelle("cotisation test");
 		cotisation.setTauxPatronal(new BigDecimal("0.012030"));
@@ -33,7 +32,7 @@ public class CotisationServiceJpaTest {
 
 		// vérifier qu'il est possible de récupérer la nouvelle cotisation via la
 		// méthode lister
-		assertThat(cotisationService.lister()).filteredOn(cot -> cot.getId().equals(1)).first()
+		assertThat(cotisationService.lister()).filteredOn(cot -> cot.getId().equals(cotisation.getId())).first()
 				.isEqualToComparingFieldByField(cotisation);
 
 		// modifier une cotisation
@@ -42,7 +41,7 @@ public class CotisationServiceJpaTest {
 
 		// vérifier que les modifications sont bien prises en compte via la méthode
 		// lister
-		assertThat(cotisationService.lister()).filteredOn(cot -> cot.getId().equals(1))
+		assertThat(cotisationService.lister()).filteredOn(cot -> cot.getId().equals(cotisation.getId()))
 				.extracting(cot -> cot.getTauxSalarial()).contains(new BigDecimal("0.021003"));
 
 		cotisationService.supprimer(cotisation);
