@@ -7,15 +7,13 @@ import java.math.BigDecimal;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import dev.paie.config.JpaConfig;
+import dev.paie.config.ServicesConfig;
 import dev.paie.entite.Cotisation;
 
-@Service
-@ContextConfiguration(classes = { JpaConfig.class })
+@ContextConfiguration(classes = { ServicesConfig.class })
 @RunWith(SpringRunner.class)
 public class CotisationServiceJpaTest {
 

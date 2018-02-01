@@ -3,16 +3,10 @@ package dev.paie.config;
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-import dev.paie.entite.Grade;
-import dev.paie.service.GradeServiceJdbcTemplate;
-
 @Configuration
-@Import({ Grade.class, GradeServiceJdbcTemplate.class })
 public class DataSourceMySQLConfig {
 
 	@Bean
@@ -23,10 +17,6 @@ public class DataSourceMySQLConfig {
 		dataSource.setUsername("u4as4uumsqlseqkn");
 		dataSource.setPassword("XV8OwUCrFcfhtPhOASP");
 		return dataSource;
-
-		// BDD embarquée
-		// return new
-		// EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).addScript("Grade.sql").build();
 	}
 
 }
