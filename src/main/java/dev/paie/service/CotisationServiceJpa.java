@@ -26,25 +26,19 @@ public class CotisationServiceJpa implements CotisationService {
 	@Transactional
 	@Override
 	public void mettreAJour(Cotisation cotisation) {
-		TypedQuery<Cotisation> query = em.createQuery("select c from Cotisation c where c.code=:code",
-				Cotisation.class);
-		query.setParameter("code", cotisation.getCode());
-		Cotisation oldCotisation = query.getSingleResult();
+		Cotisation dbCotisation = em.find(Cotisation.class, cotisation.getId());
 
-		oldCotisation.setLibelle(cotisation.getLibelle());
-		oldCotisation.setTauxPatronal(cotisation.getTauxPatronal());
-		oldCotisation.setTauxSalarial(cotisation.getTauxSalarial());
+		dbCotisation.setLibelle(cotisation.getLibelle());
+		dbCotisation.setTauxPatronal(cotisation.getTauxPatronal());
+		dbCotisation.setTauxSalarial(cotisation.getTauxSalarial());
 	}
 
 	@Transactional
 	@Override
 	public void supprimer(Cotisation cotisation) {
-		TypedQuery<Cotisation> query = em.createQuery("select c from Cotisation c where c.code=:code",
-				Cotisation.class);
-		query.setParameter("code", cotisation.getCode());
-		Cotisation oldCotisation = query.getSingleResult();
+		Cotisation dbCotisation = em.find(Cotisation.class, cotisation.getId());
 
-		em.remove(oldCotisation);
+		em.remove(dbCotisation);
 	}
 
 	@Override

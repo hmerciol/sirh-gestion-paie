@@ -42,7 +42,7 @@ public class CotisationServiceJpaTest {
 		cotisation.setTauxSalarial(new BigDecimal("0.021003"));
 		cotisationService.mettreAJour(cotisation);
 
-		// TODO vérifier que les modifications sont bien prises en compte via la méthode
+		// vérifier que les modifications sont bien prises en compte via la méthode
 		// lister
 		assertThat(cotisationService.lister()).filteredOn(cot -> cot.getId().equals(1))
 				.extracting(cot -> cot.getTauxSalarial()).contains(new BigDecimal("0.021003"));
