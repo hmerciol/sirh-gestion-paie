@@ -2,6 +2,7 @@ package dev.paie.entite;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -12,7 +13,9 @@ public class Cotisation {
 	private Integer id;
 	private String code;
 	private String libelle;
+	@Column(precision=19,scale=6)
 	private BigDecimal tauxSalarial;
+	@Column(precision=19,scale=6)
 	private BigDecimal tauxPatronal;
 	
 	
