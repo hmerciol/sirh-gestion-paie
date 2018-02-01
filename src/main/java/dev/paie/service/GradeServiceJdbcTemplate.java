@@ -35,6 +35,12 @@ public class GradeServiceJdbcTemplate implements GradeService {
 		String sql = "UPDATE Grade SET code=?,nbHeuresBase=?,tauxBase=? WHERE id=?";
 		jdbcTemplate.update(sql, grade.getCode(), grade.getNbHeuresBase(), grade.getTauxBase(), grade.getId());
 	}
+	
+	@Override
+	public void supprimer(Grade grade) {
+		String sql = "DELETE FROM Grade WHERE id=?";
+		jdbcTemplate.update(sql, grade.getId());
+	}
 
 	@Override
 	public List<Grade> lister() {

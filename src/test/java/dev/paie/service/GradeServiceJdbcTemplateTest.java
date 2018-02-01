@@ -41,7 +41,9 @@ public class GradeServiceJdbcTemplateTest {
 
 		// vérifier que les modifications sont bien prises en compte via la méthode
 		// lister
-		assertThat(gradeService.lister()).filteredOn(gr -> gr.getCode().equals("GR01"))
+		assertThat(gradeService.lister()).filteredOn(gr -> gr.getId().equals(1))
 				.extracting(gr -> gr.getNbHeuresBase()).contains(new BigDecimal("150.23"));
+		
+		gradeService.supprimer(grade);
 	}
 }
