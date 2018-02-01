@@ -10,5 +10,7 @@ public interface CotisationService {
 
 	void mettreAJour(Cotisation cotisation);
 
+	void supprimer(Cotisation cotisation);
+
 	List<Cotisation> lister();
 }

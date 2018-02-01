@@ -47,5 +47,6 @@ public class CotisationServiceJpaTest {
 		assertThat(cotisationService.lister()).filteredOn(cot -> cot.getId().equals(1))
 				.extracting(cot -> cot.getTauxSalarial()).contains(new BigDecimal("0.021003"));
 
+		cotisationService.supprimer(cotisation);
 	}
 }
