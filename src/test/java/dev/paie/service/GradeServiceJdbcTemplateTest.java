@@ -24,7 +24,6 @@ public class GradeServiceJdbcTemplateTest {
 	public void test_sauvegarder_lister_mettre_a_jour() {
 		// sauvegarder un nouveau grade
 		Grade grade = new Grade();
-		grade.setId(1);
 		grade.setCode("GR01");
 		grade.setNbHeuresBase(new BigDecimal("149.68"));
 		grade.setTauxBase(new BigDecimal("11.0862"));
