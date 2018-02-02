@@ -4,18 +4,13 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
 @Entity
-public class Avantage {
+public class Avantage extends Element {
 
-	@Id
-	@GeneratedValue
-	private Integer id;
 	private String code;
 	private String nom;
-	@Column(precision=19,scale=2)
+	@Column(precision = 19, scale = 2)
 	private BigDecimal montant;
 
 	public String getCode() {
@@ -40,13 +35,5 @@ public class Avantage {
 
 	public void setMontant(BigDecimal montant) {
 		this.montant = montant;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 }

@@ -3,16 +3,11 @@ package dev.paie.entite;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 @Entity
-public class ProfilRemuneration {
+public class ProfilRemuneration extends Element {
 
-	@Id
-	@GeneratedValue
-	private Integer id;
 	private String code;
 	@ManyToMany
 	private List<Cotisation> cotisationsNonImposables;
@@ -20,14 +15,6 @@ public class ProfilRemuneration {
 	private List<Cotisation> cotisationsImposables;
 	@ManyToMany
 	private List<Avantage> avantages;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public String getCode() {
 		return code;
