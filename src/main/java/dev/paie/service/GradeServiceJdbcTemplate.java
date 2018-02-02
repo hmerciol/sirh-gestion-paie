@@ -44,8 +44,7 @@ public class GradeServiceJdbcTemplate implements GradeService {
 	@Override
 	public List<Grade> lister() {
 		TypedQuery<Grade> query = em.createQuery("select g from Grade g", Grade.class);
-		List<Grade> result = query.getResultList();
-		return result;
+		return query.getResultList();
 	}
 
 }
