@@ -1,4 +1,4 @@
-package dev.paie.service;
+package dev.paie.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -15,10 +15,10 @@ import dev.paie.entite.Cotisation;
 
 @ContextConfiguration(classes = { ServicesConfig.class })
 @RunWith(SpringRunner.class)
-public class CotisationServiceJpaTest {
+public class CotisationRepositoryTest {
 
 	@Autowired
-	private CotisationService cotisationService;
+	private CotisationRepository cotisationRepository;
 
 	@Test
 	public void test_sauvegarder_lister_mettre_a_jour() {
@@ -28,22 +28,18 @@ public class CotisationServiceJpaTest {
 		cotisation.setLibelle("cotisation test");
 		cotisation.setTauxPatronal(new BigDecimal("0.012030"));
 		cotisation.setTauxSalarial(new BigDecimal("0.009612"));
-		cotisationService.sauvegarder(cotisation);
+		cotisationRepository.save(cotisation);
 
 		// vérifier qu'il est possible de récupérer la nouvelle cotisation via la
 		// méthode lister
-		assertThat(cotisationService.lister()).filteredOn(cot -> cot.getId().equals(cotisation.getId())).first()
-				.isEqualToComparingFieldByField(cotisation);
+		assertThat(cotisationRepository.findOne(cotisation.getId())).isEqualToComparingFieldByField(cotisation);
 
 		// modifier une cotisation
 		cotisation.setTauxSalarial(new BigDecimal("0.021003"));
-		cotisationService.mettreAJour(cotisation);
+		cotisationRepository.save(cotisation);
 
 		// vérifier que les modifications sont bien prises en compte via la méthode
 		// lister
-		assertThat(cotisationService.lister()).filteredOn(cot -> cot.getId().equals(cotisation.getId()))
-				.extracting(cot -> cot.getTauxSalarial()).contains(new BigDecimal("0.021003"));
-
-		cotisationService.supprimer(cotisation);
+		assertThat(cotisationRepository.findOne(cotisation.getId())).isEqualToComparingFieldByField(cotisation);
 	}
 }

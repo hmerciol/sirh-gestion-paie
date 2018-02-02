@@ -1,4 +1,4 @@
-package dev.paie.service;
+package dev.paie.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -15,10 +15,10 @@ import dev.paie.entite.Grade;
 
 @ContextConfiguration(classes = { ServicesConfig.class })
 @RunWith(SpringRunner.class)
-public class GradeServiceJdbcTemplateTest {
+public class GradeRepositoryTest {
 
 	@Autowired
-	private GradeService gradeService;
+	private GradeRepository gradeRepository;
 
 	@Test
 	public void test_sauvegarder_lister_mettre_a_jour() {
@@ -27,22 +27,18 @@ public class GradeServiceJdbcTemplateTest {
 		grade.setCode("GR01");
 		grade.setNbHeuresBase(new BigDecimal("149.68"));
 		grade.setTauxBase(new BigDecimal("11.086200"));
-		gradeService.sauvegarder(grade);
+		gradeRepository.save(grade);
 
 		// vérifier qu'il est possible de récupérer le nouveau grade via la méthode
 		// lister
-		assertThat(gradeService.lister()).filteredOn(gr -> gr.getId().equals(grade.getId())).first()
-				.isEqualToComparingFieldByField(grade);
+		assertThat(gradeRepository.findOne(grade.getId())).isEqualToComparingFieldByField(grade);
 
 		// modifier un grade
 		grade.setNbHeuresBase(new BigDecimal("150.23"));
-		gradeService.mettreAJour(grade);
+		gradeRepository.save(grade);
 
 		// vérifier que les modifications sont bien prises en compte via la méthode
 		// lister
-		assertThat(gradeService.lister()).filteredOn(gr -> gr.getId().equals(grade.getId()))
-				.extracting(gr -> gr.getNbHeuresBase()).contains(new BigDecimal("150.23"));
-		
-		gradeService.supprimer(grade);
+		assertThat(gradeRepository.findOne(grade.getId())).isEqualToComparingFieldByField(grade);
 	}
 }
