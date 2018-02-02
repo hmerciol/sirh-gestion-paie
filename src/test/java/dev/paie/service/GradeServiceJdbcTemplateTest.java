@@ -10,10 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import dev.paie.config.DataSourceMySQLConfig;
+import dev.paie.config.ServicesConfig;
 import dev.paie.entite.Grade;
 
-@ContextConfiguration(classes = { DataSourceMySQLConfig.class })
+@ContextConfiguration(classes = { ServicesConfig.class })
 @RunWith(SpringRunner.class)
 public class GradeServiceJdbcTemplateTest {
 
@@ -26,7 +26,7 @@ public class GradeServiceJdbcTemplateTest {
 		Grade grade = new Grade();
 		grade.setCode("GR01");
 		grade.setNbHeuresBase(new BigDecimal("149.68"));
-		grade.setTauxBase(new BigDecimal("11.0862"));
+		grade.setTauxBase(new BigDecimal("11.086200"));
 		gradeService.sauvegarder(grade);
 
 		// vérifier qu'il est possible de récupérer le nouveau grade via la méthode

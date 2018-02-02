@@ -1,59 +1,51 @@
 package dev.paie.service;
 
-import java.sql.ResultSet;
 import java.util.List;
 
-import javax.sql.DataSource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import dev.paie.entite.Grade;
 
 @Service
 public class GradeServiceJdbcTemplate implements GradeService {
 
-	private JdbcTemplate jdbcTemplate;
+	@PersistenceContext
+	private EntityManager em;
 
-	@Autowired
-	public GradeServiceJdbcTemplate(DataSource dataSource) {
-		super();
-		this.jdbcTemplate = new JdbcTemplate(dataSource);
-	}
-
+	@Transactional
 	@Override
 	public void sauvegarder(Grade nouveauGrade) {
-		String sql = "INSERT INTO Grade (id,code,nbHeuresBase,tauxBase) VALUES (?,?,?,?)";
-		jdbcTemplate.update(sql, nouveauGrade.getId(), nouveauGrade.getCode(), nouveauGrade.getNbHeuresBase(),
-				nouveauGrade.getTauxBase());
+		em.persist(nouveauGrade);
 	}
 
+	@Transactional
 	@Override
 	public void mettreAJour(Grade grade) {
-		String sql = "UPDATE Grade SET code=?,nbHeuresBase=?,tauxBase=? WHERE id=?";
-		jdbcTemplate.update(sql, grade.getCode(), grade.getNbHeuresBase(), grade.getTauxBase(), grade.getId());
+		Grade dbGrade = em.find(Grade.class, grade.getId());
+
+		dbGrade.setCode(grade.getCode());
+		dbGrade.setNbHeuresBase(grade.getNbHeuresBase());
+		dbGrade.setTauxBase(grade.getTauxBase());
 	}
-	
+
+	@Transactional
 	@Override
 	public void supprimer(Grade grade) {
-		String sql = "DELETE FROM Grade WHERE id=?";
-		jdbcTemplate.update(sql, grade.getId());
+		Grade dbGrade = em.find(Grade.class, grade.getId());
+
+		em.remove(dbGrade);
 	}
 
 	@Override
 	public List<Grade> lister() {
-		String sql = "SELECT * FROM Grade";
-		RowMapper<Grade> gradeMapper = (ResultSet rs, int rn) -> {
-			Grade gr = new Grade();
-			gr.setId(rs.getInt("id"));
-			gr.setCode(rs.getString("code"));
-			gr.setNbHeuresBase(rs.getBigDecimal("nbHeuresBase"));
-			gr.setTauxBase(rs.getBigDecimal("tauxBase"));
-			return gr;
-		};
-		return jdbcTemplate.query(sql, gradeMapper);
+		TypedQuery<Grade> query = em.createQuery("select g from Grade g", Grade.class);
+		List<Grade> result = query.getResultList();
+		return result;
 	}
 
 }
