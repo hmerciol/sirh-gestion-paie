@@ -26,6 +26,7 @@ public class RemunerationEmployeController {
 	@Autowired
 	private RemunerationEmployeRepository remEmplRepo;
 
+	//page de création d'un employé
 	@RequestMapping(method = RequestMethod.GET, path = "/creer")
 	public ModelAndView creerEmploye() {
 		ModelAndView mv = new ModelAndView();
@@ -37,10 +38,20 @@ public class RemunerationEmployeController {
 		return mv;
 	}
 
+	//récupération d'un nouvel employé
 	@RequestMapping(method = RequestMethod.POST, path = "/creer")
 	public String creerEmploye(@ModelAttribute("newEmploye") RemunerationEmploye newEmploye) {
 		remEmplRepo.save(newEmploye);
-		return "redirect:/";
+		return "redirect:/mvc/employes/lister";
+	}
+
+	//page d'affichage des employés
+	@RequestMapping(method = RequestMethod.GET, path = "/lister")
+	public ModelAndView listerEmployes() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("employes/listerEmployes");
+		mv.addObject("listEmployes", remEmplRepo.findAll());
+		return mv;
 	}
 
 }
