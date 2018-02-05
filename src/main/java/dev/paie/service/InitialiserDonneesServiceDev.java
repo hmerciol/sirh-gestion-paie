@@ -1,7 +1,6 @@
 package dev.paie.service;
 
-import java.time.LocalDate;
-import java.time.temporal.TemporalAdjusters;
+import java.time.Year;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -51,9 +50,8 @@ public class InitialiserDonneesServiceDev implements InitialiserDonneesService {
 		// mise en base des périodes
 		IntStream.rangeClosed(1, 12).forEach(month -> {
 			Periode p = new Periode();
-			LocalDate date = LocalDate.of(2017, month, 1);
-			p.setDateDebut(date);
-			p.setDateFin(date.with(TemporalAdjusters.lastDayOfMonth()));
+			p.setDateDebut(Year.now().atMonth(month).atDay(1));
+			p.setDateFin(Year.now().atMonth(month).atEndOfMonth());
 			em.persist(p);
 		});
 	}

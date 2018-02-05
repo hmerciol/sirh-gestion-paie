@@ -11,16 +11,19 @@ import javax.persistence.ManyToMany;
 public class ProfilRemuneration extends Element {
 
 	private String code;
+	
 	@ManyToMany
-	@JoinTable(name="profil_cotis_non_imp", joinColumns=@JoinColumn(name="profil_id",referencedColumnName="id"),
-	inverseJoinColumns=@JoinColumn(name="cotis_id", referencedColumnName="id"))
-
+	@JoinTable(name = "profil_cotis_non_imp", 
+		joinColumns = @JoinColumn(name = "profil_id", referencedColumnName = "id"), 
+		inverseJoinColumns = @JoinColumn(name = "cotis_id", referencedColumnName = "id"))
 	private List<Cotisation> cotisationsNonImposables;
+	
 	@ManyToMany
-	@JoinTable(name="profil_cotis_imp", joinColumns=@JoinColumn(name="profil_id",referencedColumnName="id"),
-	inverseJoinColumns=@JoinColumn(name="cotis_id", referencedColumnName="id"))
-
+	@JoinTable(name = "profil_cotis_imp", 
+		joinColumns = @JoinColumn(name = "profil_id", referencedColumnName = "id"), 
+		inverseJoinColumns = @JoinColumn(name = "cotis_id", referencedColumnName = "id"))
 	private List<Cotisation> cotisationsImposables;
+	
 	@ManyToMany
 	private List<Avantage> avantages;
 
