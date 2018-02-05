@@ -5,7 +5,7 @@
 			style="width: 40px;">
 	</a></li>
 	<li class="navbar-nav"><a class="nav-link"
-		href="<%=request.getContextPath()%>/employes/lister">Employés</a></li>
+		href="<%=request.getContextPath()%>/mvc/employes/lister">Employés</a></li>
 	<li class="navbar-nav"><a class="nav-link"
-		href="<%=request.getContextPath()%>/bulletins/lister">Bulletins</a></li>
+		href="<%=request.getContextPath()%>/mvc/bulletins/lister">Bulletins</a></li>
 </ul>
