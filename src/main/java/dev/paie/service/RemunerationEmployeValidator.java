@@ -1,20 +1,26 @@
 package dev.paie.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dev.paie.entite.Element;
 import dev.paie.entite.RemunerationEmploye;
+import dev.paie.repository.RemunerationEmployeRepository;
 
 @Service
 public class RemunerationEmployeValidator implements ElementValidator {
+
+	@Autowired
+	RemunerationEmployeRepository remEmplRepo;
 
 	@Override
 	public boolean valider(Element element) {
 		if (element instanceof RemunerationEmploye) {
 			RemunerationEmploye employe = (RemunerationEmploye) element;
 
-			// le matricule doit être assignée
-			if (employe.getMatricule() == null || employe.getMatricule().trim().isEmpty()) {
+			// le matricule doit être assignée, conforme et pas déjà pris
+			if (employe.getMatricule() == null || !employe.getMatricule().matches("[A-Z][0-9]+") || !remEmplRepo
+					.findAll().stream().noneMatch(em -> em.getMatricule().equals(employe.getMatricule()))) {
 				return false;
 			}
 

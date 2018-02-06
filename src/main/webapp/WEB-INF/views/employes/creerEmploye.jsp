@@ -33,7 +33,8 @@
 			</div>
 			<div class="col-xl-6 col-md-5">
 				<form:input path="matricule" type="text" class="form-control" />
-				<div class="invalid-feedback">Le matricule est obligatoire</div>
+				<div class="invalid-feedback">Le matricule est obligatoire,
+					doit commencer par une lettre majuscule suivie par des chiffres</div>
 			</div>
 			<div class="col-xl-1 col-md-0"></div>
 		</div>
