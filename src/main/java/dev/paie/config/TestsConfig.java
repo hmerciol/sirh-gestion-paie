@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ImportResource;
 
 @Configuration
 @Import({ServicesConfig.class})
-@ImportResource("jdd-config.xml")
+@ImportResource("classpath:jdd-config.xml")
 public class TestsConfig {
 
 }
