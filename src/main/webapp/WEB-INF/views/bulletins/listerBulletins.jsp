@@ -22,7 +22,7 @@
 		</div>
 	</header>
 
-	<!-- créer employé -->
+	<!-- créer bulletin -->
 	<div class="row">
 		<div class="col-xl-12 mt-5 mr-5">
 			<div class="float-sm-right">
@@ -32,7 +32,7 @@
 		</div>
 	</div>
 
-	<!-- lister employés -->
+	<!-- lister bulletins -->
 	<section class="ml-5 mr-5 mt-5">
 		<div class="row">
 			<table class="table table-bordered table-striped">
@@ -43,6 +43,7 @@
 						<th>Salaire brut</th>
 						<th>Net imposable</th>
 						<th>Net à payer</th>
+						<th>Action</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -53,6 +54,7 @@
 							<td>${bulletin.value.salaireBrut}</td>
 							<td>${bulletin.value.netImposable}</td>
 							<td>${bulletin.value.netAPayer}</td>
+							<td><a href='<c:url value="/mvc/bulletins/visualiser/${bulletin.key.id}"/>'>Visualiser</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>

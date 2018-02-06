@@ -2,7 +2,9 @@ package dev.paie.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -50,6 +52,18 @@ public class BulletinSalaireController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("bulletins/listerBulletins");
 		mv.addObject("listBulletins", calRemServ.mapCalculer());
+		return mv;
+	}
+
+	// page d'affichage d'un bulletin
+	@Transactional
+	@RequestMapping(method = RequestMethod.GET, path = "/visualiser/{idBul}")
+	public ModelAndView visualiserBulletin(@PathVariable Integer idBul) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("bulletins/visualiserBulletin");
+		BulletinSalaire bulletin = bulSalRepo.findOne(idBul);
+		mv.addObject("bulletin", bulletin);
+		mv.addObject("calculs", calRemServ.calculer(bulletin));
 		return mv;
 	}
 
