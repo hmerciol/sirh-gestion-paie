@@ -24,7 +24,7 @@ public class BulletinSalaireValidator implements ElementValidator {
 			}
 
 			// la période doit exister
-			return (bulletin.getPeriode() == null);
+			return (bulletin.getPeriode() != null);
 		}
 		// pas un bulletin
 		return false;
