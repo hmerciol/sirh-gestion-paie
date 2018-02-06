@@ -1,5 +1,8 @@
 package dev.paie.web.controller;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -41,6 +44,8 @@ public class RemunerationEmployeController {
 	// récupération d'un nouvel employé
 	@RequestMapping(method = RequestMethod.POST, path = "/creer")
 	public String creerEmploye(@ModelAttribute("newEmploye") RemunerationEmploye newEmploye) {
+		newEmploye.setCreationDate(LocalDate.now());
+		newEmploye.setCreationTime(LocalTime.now());
 		remEmplRepo.save(newEmploye);
 		return "redirect:/mvc/employes/lister";
 	}

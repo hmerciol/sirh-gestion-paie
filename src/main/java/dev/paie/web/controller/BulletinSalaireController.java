@@ -1,5 +1,8 @@
 package dev.paie.web.controller;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,6 +45,8 @@ public class BulletinSalaireController {
 	// récupération d'un nouveau bulletin
 	@RequestMapping(method = RequestMethod.POST, path = "/creer")
 	public String creerBulletin(@ModelAttribute("newBulletin") BulletinSalaire newBulletin) {
+		newBulletin.setCreationDate(LocalDate.now());
+		newBulletin.setCreationTime(LocalTime.now());
 		bulSalRepo.save(newBulletin);
 		return "redirect:/mvc/bulletins/lister";
 	}

@@ -38,6 +38,7 @@
 			<table class="table table-bordered table-striped">
 				<thead>
 					<tr>
+						<th>Date/heure création</th>
 						<th>Matricule</th>
 						<th>Grade</th>
 						<th>Entreprise</th>
@@ -46,6 +47,7 @@
 				<tbody>
 					<c:forEach items="${listEmployes}" var="employe">
 						<tr>
+							<td>${employe.creationDate} ${employe.creationTime}</td>
 							<td>${employe.matricule}</td>
 							<td>${employe.grade.code}</td>
 							<td>${employe.entreprise.denomination}</td>

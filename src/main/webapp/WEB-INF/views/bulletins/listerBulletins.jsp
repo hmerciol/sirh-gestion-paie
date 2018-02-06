@@ -38,6 +38,7 @@
 			<table class="table table-bordered table-striped">
 				<thead>
 					<tr>
+						<th>Date/heure création</th>
 						<th>Période</th>
 						<th>Matricule</th>
 						<th>Salaire brut</th>
@@ -49,6 +50,7 @@
 				<tbody>
 					<c:forEach items="${listBulletins}" var="bulletin">
 						<tr>
+							<td>${bulletin.key.creationDate} ${bulletin.key.creationTime}</td>
 							<td>${bulletin.key.periode.dateDebut} - ${bulletin.key.periode.dateFin}</td>
 							<td>${bulletin.key.remunerationEmploye.matricule}</td>
 							<td>${bulletin.value.salaireBrut}</td>
