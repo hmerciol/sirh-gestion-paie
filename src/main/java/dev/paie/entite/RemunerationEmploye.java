@@ -1,13 +1,10 @@
 package dev.paie.entite;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class RemunerationEmploye extends Element {
+public class RemunerationEmploye extends Datable {
 
 	private String matricule;
 	@ManyToOne
@@ -16,8 +13,6 @@ public class RemunerationEmploye extends Element {
 	private ProfilRemuneration profilRemuneration;
 	@ManyToOne
 	private Grade grade;
-	private LocalDate creationDate;
-	private LocalTime creationTime;
 
 	public String getMatricule() {
 		return matricule;
@@ -49,22 +44,6 @@ public class RemunerationEmploye extends Element {
 
 	public void setGrade(Grade grade) {
 		this.grade = grade;
-	}
-
-	public LocalDate getCreationDate() {
-		return creationDate;
-	}
-
-	public void setCreationDate(LocalDate creationDate) {
-		this.creationDate = creationDate;
-	}
-
-	public LocalTime getCreationTime() {
-		return creationTime;
-	}
-
-	public void setCreationTime(LocalTime creationTime) {
-		this.creationTime = creationTime;
 	}
 
 }
