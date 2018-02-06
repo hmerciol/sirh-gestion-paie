@@ -35,7 +35,7 @@ public class RemunerationEmployeValidator implements ElementValidator {
 			}
 
 			// le grade doit exister
-			return (employe.getGrade() == null);
+			return (employe.getGrade() != null);
 		}
 		// pas un bulletin
 		return false;
