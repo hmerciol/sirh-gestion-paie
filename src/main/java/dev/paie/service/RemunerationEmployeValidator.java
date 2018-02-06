@@ -10,30 +10,26 @@ public class RemunerationEmployeValidator implements ElementValidator {
 
 	@Override
 	public boolean valider(Element element) {
-		if(element instanceof RemunerationEmploye) {
+		if (element instanceof RemunerationEmploye) {
 			RemunerationEmploye employe = (RemunerationEmploye) element;
-			
+
 			// le matricule doit être assignée
-			if(employe.getMatricule() == null || employe.getMatricule().trim().equals("")) {
+			if (employe.getMatricule() == null || employe.getMatricule().trim().isEmpty()) {
 				return false;
 			}
-			
+
 			// l'entreprise doit exister
-			if(employe.getEntreprise() == null) {
+			if (employe.getEntreprise() == null) {
 				return false;
 			}
-			
+
 			// le profil doit exister
-			if(employe.getProfilRemuneration() == null) {
+			if (employe.getProfilRemuneration() == null) {
 				return false;
 			}
-			
+
 			// le grade doit exister
-			if(employe.getGrade() == null) {
-				return false;
-			}
-			
-			return true;
+			return (employe.getGrade() == null);
 		}
 		// pas un bulletin
 		return false;
