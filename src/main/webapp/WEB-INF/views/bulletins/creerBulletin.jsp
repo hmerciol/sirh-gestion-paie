@@ -38,6 +38,7 @@
 						<form:option value="${periode.id}">${periode.dateDebut} - ${periode.dateFin}</form:option>
 					</c:forEach>
 				</form:select>
+				<div class="invalid-feedback">La période est obligatoire</div>
 			</div>
 			<div class="col-xl-2 col-md-0"></div>
 		</div>
@@ -51,6 +52,7 @@
 				<form:select path="remunerationEmploye.id" class="form-control"
 					items="${listEmployes}" itemLabel="matricule" itemValue="id">
 				</form:select>
+				<div class="invalid-feedback">Le matricule est obligatoire</div>
 			</div>
 			<div class="col-xl-2 col-md-0"></div>
 		</div>
@@ -63,6 +65,8 @@
 			<div class="col-xl-6 col-md-5">
 				<form:input path="primeExceptionnelle" type="text"
 					class="form-control" />
+				<div class="invalid-feedback">La prime est obligatoire (entrez
+					0 si pas de prime)</div>
 			</div>
 			<div class="col-xl-2 col-md-0"></div>
 		</div>
@@ -79,4 +83,11 @@
 
 <!-- scripts -->
 <%@ include file="../pageScripts.jsp"%>
+<script type="text/javascript">
+	(function() {
+		if (location.search === "?erreur") {
+			$('.form-control').addClass('is-invalid');
+		}
+	})();
+</script>
 </html>

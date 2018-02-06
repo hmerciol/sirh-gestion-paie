@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -49,12 +50,18 @@ public class BulletinSalaireController {
 	@RequestMapping(method = RequestMethod.POST, path = "/creer")
 	public String creerBulletin(@ModelAttribute("newBulletin") BulletinSalaire newBulletin) {
 		if(!bulSalValid.valider(newBulletin)) {
-			//TODO page d'erreur
+			return "redirect:/mvc/bulletins/creer?erreur";
 		}
 		newBulletin.setCreationDate(LocalDate.now());
 		newBulletin.setCreationTime(LocalTime.now());
 		bulSalRepo.save(newBulletin);
 		return "redirect:/mvc/bulletins/lister";
+	}
+	
+	// page d'erreur
+	@RequestMapping(method = RequestMethod.GET, path = "/creer?erreur")
+	public ModelAndView erreurCreation() {
+		return creerBulletin();
 	}
 
 	// page d'affichage des bulletins
