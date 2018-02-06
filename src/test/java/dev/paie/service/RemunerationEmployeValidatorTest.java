@@ -26,8 +26,6 @@ public class RemunerationEmployeValidatorTest {
 	
 	@Test
 	public void test_valider() {
-		assertThat(remEmplValid.valider(employe)).isTrue();
-		
 		String matricule = employe.getMatricule();
 		employe.setMatricule("");
 		assertThat(remEmplValid.valider(employe)).isFalse();

@@ -27,8 +27,6 @@ public class BulletinSalaireValidatorTest {
 	
 	@Test
 	public void test_valider() {
-		assertThat(bulSalValid.valider(bulletin)).isTrue();
-		
 		Periode periode = bulletin.getPeriode();
 		bulletin.setPeriode(null);
 		assertThat(bulSalValid.valider(bulletin)).isFalse();

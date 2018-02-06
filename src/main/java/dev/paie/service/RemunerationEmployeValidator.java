@@ -34,17 +34,20 @@ public class RemunerationEmployeValidator implements ElementValidator {
 			}
 
 			// l'entreprise doit exister
-			if (employe.getEntreprise() == null || entRepo.findOne(employe.getEntreprise().getId()) == null) {
+			if (employe.getEntreprise() == null || entRepo.findAll().stream()
+					.noneMatch(en -> en.getSiret().equals(employe.getEntreprise().getSiret()))) {
 				return false;
 			}
 
 			// le profil doit exister
-			if (employe.getProfilRemuneration() == null || profRepo.findOne(employe.getProfilRemuneration().getId()) == null) {
+			if (employe.getProfilRemuneration() == null || profRepo.findAll().stream()
+					.noneMatch(pr -> pr.getCode().equals(employe.getProfilRemuneration().getCode()))) {
 				return false;
 			}
 
 			// le grade doit exister
-			return (employe.getGrade() != null && graRepo.findOne(employe.getGrade().getId()) != null);
+			return (employe.getGrade() != null
+					&& !graRepo.findAll().stream().noneMatch(gr -> gr.getCode().equals(employe.getGrade().getCode())));
 		}
 		// pas un bulletin
 		return false;

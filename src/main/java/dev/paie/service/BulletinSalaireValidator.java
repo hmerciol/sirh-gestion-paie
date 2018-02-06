@@ -10,7 +10,7 @@ import dev.paie.repository.RemunerationEmployeRepository;
 
 @Service
 public class BulletinSalaireValidator implements ElementValidator {
-	
+
 	@Autowired
 	RemunerationEmployeRepository remEmplRepo;
 	@Autowired
@@ -27,12 +27,14 @@ public class BulletinSalaireValidator implements ElementValidator {
 			}
 
 			// la rémunération employé doit exister
-			if (bulletin.getRemunerationEmploye() == null || remEmplRepo.findOne(bulletin.getRemunerationEmploye().getId()) == null) {
+			if (bulletin.getRemunerationEmploye() == null || remEmplRepo.findAll().stream()
+					.noneMatch(em -> em.getMatricule().equals(bulletin.getRemunerationEmploye().getMatricule()))) {
 				return false;
 			}
 
 			// la période doit exister
-			return (bulletin.getPeriode() != null && perRepo.findOne(bulletin.getPeriode().getId()) != null);
+			return (bulletin.getPeriode() != null && !perRepo.findAll().stream()
+					.noneMatch(pe -> pe.getLabel().equals(bulletin.getPeriode().getLabel())));
 		}
 		// pas un bulletin
 		return false;
