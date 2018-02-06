@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import dev.paie.entite.BulletinSalaire;
@@ -15,7 +15,7 @@ import dev.paie.entite.ResultatCalculRemuneration;
 import dev.paie.repository.BulletinSalaireRepository;
 import dev.paie.util.PaieUtils;
 
-@Component
+@Service
 public class CalculerRemunerationServiceSimple implements CalculerRemunerationService {
 
 	@Autowired

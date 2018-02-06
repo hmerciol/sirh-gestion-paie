@@ -16,6 +16,7 @@ import dev.paie.entite.BulletinSalaire;
 import dev.paie.repository.BulletinSalaireRepository;
 import dev.paie.repository.PeriodeRepository;
 import dev.paie.repository.RemunerationEmployeRepository;
+import dev.paie.service.BulletinSalaireValidator;
 import dev.paie.service.CalculerRemunerationService;
 
 @Controller
@@ -30,6 +31,8 @@ public class BulletinSalaireController {
 	private BulletinSalaireRepository bulSalRepo;
 	@Autowired
 	private CalculerRemunerationService calRemServ;
+	@Autowired
+	private BulletinSalaireValidator bulSalValid;
 
 	// page de création d'un bulletin
 	@RequestMapping(method = RequestMethod.GET, path = "/creer")
@@ -45,6 +48,9 @@ public class BulletinSalaireController {
 	// récupération d'un nouveau bulletin
 	@RequestMapping(method = RequestMethod.POST, path = "/creer")
 	public String creerBulletin(@ModelAttribute("newBulletin") BulletinSalaire newBulletin) {
+		if(!bulSalValid.valider(newBulletin)) {
+			//TODO page d'erreur
+		}
 		newBulletin.setCreationDate(LocalDate.now());
 		newBulletin.setCreationTime(LocalTime.now());
 		bulSalRepo.save(newBulletin);

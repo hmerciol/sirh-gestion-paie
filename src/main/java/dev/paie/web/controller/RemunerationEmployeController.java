@@ -15,6 +15,7 @@ import dev.paie.repository.EntrepriseRepository;
 import dev.paie.repository.GradeRepository;
 import dev.paie.repository.ProfilRemunerationRepository;
 import dev.paie.repository.RemunerationEmployeRepository;
+import dev.paie.service.RemunerationEmployeValidator;
 
 @Controller
 @RequestMapping("/employes")
@@ -28,6 +29,8 @@ public class RemunerationEmployeController {
 	private GradeRepository graRepo;
 	@Autowired
 	private RemunerationEmployeRepository remEmplRepo;
+	@Autowired
+	private RemunerationEmployeValidator remEmplValid;
 
 	// page de création d'un employé
 	@RequestMapping(method = RequestMethod.GET, path = "/creer")
@@ -44,6 +47,9 @@ public class RemunerationEmployeController {
 	// récupération d'un nouvel employé
 	@RequestMapping(method = RequestMethod.POST, path = "/creer")
 	public String creerEmploye(@ModelAttribute("newEmploye") RemunerationEmploye newEmploye) {
+		if(!remEmplValid.valider(newEmploye)) {
+			//TODO page d'erreur
+		}
 		newEmploye.setCreationDate(LocalDate.now());
 		newEmploye.setCreationTime(LocalTime.now());
 		remEmplRepo.save(newEmploye);
