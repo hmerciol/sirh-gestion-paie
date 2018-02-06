@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import dev.paie.config.TestsConfig;
 import dev.paie.entite.BulletinSalaire;
 import dev.paie.entite.Periode;
+import dev.paie.entite.RemunerationEmploye;
 
 @ContextConfiguration(classes = { TestsConfig.class })
 @RunWith(SpringRunner.class)
@@ -37,9 +38,11 @@ public class BulletinSalaireValidatorTest {
 		bulletin.setPrimeExceptionnelle(null);
 		assertThat(bulSalValid.valider(bulletin)).isFalse();
 		bulletin.setPrimeExceptionnelle(prime);
-		
+
+		RemunerationEmploye employe = bulletin.getRemunerationEmploye();
 		bulletin.setRemunerationEmploye(null);
 		assertThat(bulSalValid.valider(bulletin)).isFalse();
+		bulletin.setRemunerationEmploye(employe);
 	}
 
 }

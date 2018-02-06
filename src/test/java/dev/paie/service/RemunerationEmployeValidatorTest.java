@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import dev.paie.config.TestsConfig;
 import dev.paie.entite.Entreprise;
 import dev.paie.entite.Grade;
+import dev.paie.entite.ProfilRemuneration;
 import dev.paie.entite.RemunerationEmploye;
 
 @ContextConfiguration(classes = { TestsConfig.class })
@@ -42,8 +43,10 @@ public class RemunerationEmployeValidatorTest {
 		assertThat(remEmplValid.valider(employe)).isFalse();
 		employe.setEntreprise(entreprise);
 		
+		ProfilRemuneration profil = employe.getProfilRemuneration();
 		employe.setProfilRemuneration(null);
 		assertThat(remEmplValid.valider(employe)).isFalse();
+		employe.setProfilRemuneration(profil);
 	}
 
 }
