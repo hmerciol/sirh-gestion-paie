@@ -14,7 +14,7 @@ public class RemunerationEmployeValidator implements ElementValidator {
 			RemunerationEmploye employe = (RemunerationEmploye) element;
 			
 			// le matricule doit être assignée
-			if(employe.getMatricule() == null || employe.getMatricule().equals("")) {
+			if(employe.getMatricule() == null || employe.getMatricule().trim().equals("")) {
 				return false;
 			}
 			

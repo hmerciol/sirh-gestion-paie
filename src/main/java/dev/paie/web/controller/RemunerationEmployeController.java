@@ -48,12 +48,18 @@ public class RemunerationEmployeController {
 	@RequestMapping(method = RequestMethod.POST, path = "/creer")
 	public String creerEmploye(@ModelAttribute("newEmploye") RemunerationEmploye newEmploye) {
 		if(!remEmplValid.valider(newEmploye)) {
-			//TODO page d'erreur
+			return "redirect:/mvc/employes/creer?erreur";
 		}
 		newEmploye.setCreationDate(LocalDate.now());
 		newEmploye.setCreationTime(LocalTime.now());
 		remEmplRepo.save(newEmploye);
 		return "redirect:/mvc/employes/lister";
+	}
+	
+	// page d'erreur
+	@RequestMapping(method = RequestMethod.GET, path = "/creer?erreur")
+	public ModelAndView erreurCreation() {
+		return creerEmploye();
 	}
 
 	// page d'affichage des employés

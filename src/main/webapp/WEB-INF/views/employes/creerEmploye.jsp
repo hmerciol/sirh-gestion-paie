@@ -33,6 +33,7 @@
 			</div>
 			<div class="col-xl-6 col-md-5">
 				<form:input path="matricule" type="text" class="form-control" />
+				<div class="invalid-feedback">Le matricule est obligatoire</div>
 			</div>
 			<div class="col-xl-1 col-md-0"></div>
 		</div>
@@ -46,6 +47,7 @@
 				<form:select path="entreprise.id" class="form-control"
 					items="${listEntreprises}" itemLabel="denomination" itemValue="id">
 				</form:select>
+				<div class="invalid-feedback">L'entreprise est obligatoire</div>
 			</div>
 			<div class="col-xl-1 col-md-0"></div>
 		</div>
@@ -59,6 +61,7 @@
 				<form:select path="profilRemuneration.id" class="form-control"
 					items="${listProfils}" itemLabel="code" itemValue="id">
 				</form:select>
+				<div class="invalid-feedback">Le profil est obligatoire</div>
 			</div>
 			<div class="col-xl-1 col-md-0"></div>
 		</div>
@@ -72,6 +75,7 @@
 				<form:select path="grade.id" class="form-control"
 					items="${listGrades}" itemLabel="code" itemValue="id">
 				</form:select>
+				<div class="invalid-feedback">Le grade est obligatoire</div>
 			</div>
 			<div class="col-xl-1 col-md-0"></div>
 		</div>
@@ -88,4 +92,11 @@
 
 <!-- scripts -->
 <%@ include file="../pageScripts.jsp"%>
+<script type="text/javascript">
+	(function() {
+		if (location.search === "?erreur") {
+			$('.form-control').addClass('is-invalid');
+		}
+	})();
+</script>
 </html>
