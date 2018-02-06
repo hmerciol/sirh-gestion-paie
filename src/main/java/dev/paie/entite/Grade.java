@@ -37,5 +37,9 @@ public class Grade extends Element {
 	public void setTauxBase(BigDecimal tauxBase) {
 		this.tauxBase = tauxBase;
 	}
+	
+	public String getLabel() {
+		return code + " - " + nbHeuresBase.multiply(tauxBase).multiply(new BigDecimal("12.0")).intValue() + " € / an";
+	}
 
 }

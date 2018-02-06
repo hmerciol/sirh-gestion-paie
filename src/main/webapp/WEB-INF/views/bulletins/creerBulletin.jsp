@@ -33,10 +33,8 @@
 				</div>
 			</div>
 			<div class="col-xl-6 col-md-5">
-				<form:select path="periode.id" class="form-control">
-					<c:forEach items="${listPeriodes}" var="periode">
-						<form:option value="${periode.id}">${periode.dateDebut} - ${periode.dateFin}</form:option>
-					</c:forEach>
+				<form:select path="periode.id" class="form-control"
+					items="${listPeriodes}" itemLabel="label" itemValue="id">
 				</form:select>
 				<div class="invalid-feedback">La période est obligatoire</div>
 			</div>

@@ -73,7 +73,7 @@
 			</div>
 			<div class="col-xl-6 col-md-5">
 				<form:select path="grade.id" class="form-control"
-					items="${listGrades}" itemLabel="code" itemValue="id">
+					items="${listGrades}" itemLabel="label" itemValue="id">
 				</form:select>
 				<div class="invalid-feedback">Le grade est obligatoire</div>
 			</div>
