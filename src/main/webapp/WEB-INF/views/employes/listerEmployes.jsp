@@ -26,7 +26,7 @@
 	<div class="row">
 		<div class="col-xl-12 mt-5 mr-5">
 			<div class="float-sm-right">
-				<a href="<%=request.getContextPath()%>/mvc/employes/creer"
+				<a href='<c:url value="/mvc/employes/creer" />'
 					class="btn btn-basic" role="button">Ajouter un employé</a>
 			</div>
 		</div>

@@ -1,11 +1,10 @@
-<%@ page language="java" pageEncoding="UTF-8"%>
 <ul class="navbar navbar-expand-sm">
 	<li class="navbar-nav"><a class="navbar-brand" href="../"> <img
-			src="<%=request.getContextPath()%>/images/logo.jpg" alt="Logo"
+			src='<c:url value="/images/logo.jpg" />' alt="Logo"
 			style="width: 40px;">
 	</a></li>
 	<li class="navbar-nav"><a class="nav-link"
-		href="<%=request.getContextPath()%>/mvc/employes/lister">EmployÃ©s</a></li>
+		href='<c:url value="/mvc/employes/lister" />'>Employés</a></li>
 	<li class="navbar-nav"><a class="nav-link"
-		href="<%=request.getContextPath()%>/mvc/bulletins/lister">Bulletins</a></li>
+		href='<c:url value="/mvc/bulletins/lister" />'>Bulletins</a></li>
 </ul>

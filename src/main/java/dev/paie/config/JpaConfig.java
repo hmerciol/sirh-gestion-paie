@@ -33,7 +33,7 @@ public class JpaConfig {
 
 		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
 		factory.setJpaVendorAdapter(vendorAdapter);
-		
+
 		// parametrage de la persistence
 		factory.setPackagesToScan("dev.paie.entite");
 		factory.setDataSource(dataSource);

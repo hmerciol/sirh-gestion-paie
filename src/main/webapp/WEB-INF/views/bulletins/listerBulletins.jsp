@@ -26,7 +26,7 @@
 	<div class="row">
 		<div class="col-xl-12 mt-5 mr-5">
 			<div class="float-sm-right">
-				<a href="<%=request.getContextPath()%>/mvc/bulletins/creer"
+				<a href='<c:url value="/mvc/bulletins/creer" />'
 					class="btn btn-basic" role="button">Ajouter un bulletin</a>
 			</div>
 		</div>
@@ -47,13 +47,12 @@
 				</thead>
 				<tbody>
 					<c:forEach items="${listBulletins}" var="bulletin">
-						<c:set var="resCalcul" value="${calculService.calculer(bulletin)}" />
 						<tr>
-							<td>${bulletin.periode.dateDebut} - ${bulletin.periode.dateFin}</td>
-							<td>${bulletin.remunerationEmploye.matricule}</td>
-							<td>${resCalcul.salaireBrut}</td>
-							<td>${resCalcul.netImposable}</td>
-							<td>${resCalcul.netAPayer}</td>
+							<td>${bulletin.key.periode.dateDebut} - ${bulletin.key.periode.dateFin}</td>
+							<td>${bulletin.key.remunerationEmploye.matricule}</td>
+							<td>${bulletin.value.salaireBrut}</td>
+							<td>${bulletin.value.netImposable}</td>
+							<td>${bulletin.value.netAPayer}</td>
 						</tr>
 					</c:forEach>
 				</tbody>

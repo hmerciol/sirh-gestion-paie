@@ -1,7 +1,5 @@
 package dev.paie.web.controller;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,7 +11,7 @@ import dev.paie.entite.BulletinSalaire;
 import dev.paie.repository.BulletinSalaireRepository;
 import dev.paie.repository.PeriodeRepository;
 import dev.paie.repository.RemunerationEmployeRepository;
-import dev.paie.service.CalculerRemunerationServiceSimple;
+import dev.paie.service.CalculerRemunerationService;
 
 @Controller
 @RequestMapping("/bulletins")
@@ -26,7 +24,7 @@ public class BulletinSalaireController {
 	@Autowired
 	private BulletinSalaireRepository bulSalRepo;
 	@Autowired
-	private CalculerRemunerationServiceSimple calRemServ;
+	private CalculerRemunerationService calRemServ;
 
 	// page de création d'un bulletin
 	@RequestMapping(method = RequestMethod.GET, path = "/creer")
@@ -47,13 +45,11 @@ public class BulletinSalaireController {
 	}
 
 	// page d'affichage des bulletins
-	@Transactional
 	@RequestMapping(method = RequestMethod.GET, path = "/lister")
 	public ModelAndView listerBulletins() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("bulletins/listerBulletins");
-		mv.addObject("listBulletins", bulSalRepo.findAll());
-		mv.addObject("calculService", calRemServ);
+		mv.addObject("listBulletins", calRemServ.mapCalculer());
 		return mv;
 	}
 
