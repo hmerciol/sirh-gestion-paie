@@ -50,8 +50,6 @@ public class RemunerationEmployeController {
 		if(!remEmplValid.valider(newEmploye)) {
 			return "redirect:/mvc/employes/creer?erreur";
 		}
-		newEmploye.setCreationDate(LocalDate.now());
-		newEmploye.setCreationTime(LocalTime.now());
 		remEmplRepo.save(newEmploye);
 		return "redirect:/mvc/employes/lister";
 	}

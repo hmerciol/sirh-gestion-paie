@@ -51,8 +51,6 @@ public class BulletinSalaireController {
 		if(!bulSalValid.valider(newBulletin)) {
 			return "redirect:/mvc/bulletins/creer?erreur";
 		}
-		newBulletin.setCreationDate(LocalDate.now());
-		newBulletin.setCreationTime(LocalTime.now());
 		bulSalRepo.save(newBulletin);
 		return "redirect:/mvc/bulletins/lister";
 	}

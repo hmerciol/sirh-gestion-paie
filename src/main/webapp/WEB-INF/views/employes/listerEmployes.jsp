@@ -47,7 +47,7 @@
 				<tbody>
 					<c:forEach items="${listEmployes}" var="employe">
 						<tr>
-							<td>${employe.creationDate} ${employe.creationTime}</td>
+							<td>${employe.creationLabel}</td>
 							<td>${employe.matricule}</td>
 							<td>${employe.grade.code}</td>
 							<td>${employe.entreprise.denomination}</td>

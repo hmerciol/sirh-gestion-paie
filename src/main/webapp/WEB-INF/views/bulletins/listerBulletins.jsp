@@ -50,7 +50,7 @@
 				<tbody>
 					<c:forEach items="${listBulletins}" var="bulletin">
 						<tr>
-							<td>${bulletin.key.creationDate} ${bulletin.key.creationTime}</td>
+							<td>${bulletin.key.creationLabel}</td>
 							<td>${bulletin.key.periode.dateDebut} - ${bulletin.key.periode.dateFin}</td>
 							<td>${bulletin.key.remunerationEmploye.matricule}</td>
 							<td>${bulletin.value.salaireBrut}</td>

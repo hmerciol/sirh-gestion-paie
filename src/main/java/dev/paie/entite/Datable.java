@@ -1,7 +1,7 @@
 package dev.paie.entite;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -11,23 +11,18 @@ import javax.persistence.MappedSuperclass;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Datable extends Element {
 
-	private LocalDate creationDate;
-	private LocalTime creationTime;
+	private LocalDateTime creationDateTime = LocalDateTime.now();
 
-	public LocalDate getCreationDate() {
-		return creationDate;
+	public LocalDateTime getCreationDateTime() {
+		return creationDateTime;
 	}
 
-	public void setCreationDate(LocalDate creationDate) {
-		this.creationDate = creationDate;
+	public void setCreationDateTime(LocalDateTime creationDateTime) {
+		this.creationDateTime = creationDateTime;
 	}
-
-	public LocalTime getCreationTime() {
-		return creationTime;
-	}
-
-	public void setCreationTime(LocalTime creationTime) {
-		this.creationTime = creationTime;
+	
+	public String getCreationLabel() {
+		return creationDateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
 	}
 
 }
