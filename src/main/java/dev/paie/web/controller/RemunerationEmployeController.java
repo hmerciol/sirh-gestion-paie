@@ -1,9 +1,7 @@
 package dev.paie.web.controller;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +32,7 @@ public class RemunerationEmployeController {
 
 	// page de création d'un employé
 	@RequestMapping(method = RequestMethod.GET, path = "/creer")
+	@Secured("ROLE_ADMINISTRATEUR")
 	public ModelAndView creerEmploye() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("employes/creerEmploye");
@@ -46,22 +45,18 @@ public class RemunerationEmployeController {
 
 	// récupération d'un nouvel employé
 	@RequestMapping(method = RequestMethod.POST, path = "/creer")
+	@Secured("ROLE_ADMINISTRATEUR")
 	public String creerEmploye(@ModelAttribute("newEmploye") RemunerationEmploye newEmploye) {
-		if(!remEmplValid.valider(newEmploye)) {
+		if (!remEmplValid.valider(newEmploye)) {
 			return "redirect:/mvc/employes/creer?erreur";
 		}
 		remEmplRepo.save(newEmploye);
 		return "redirect:/mvc/employes/lister";
 	}
-	
-	// page d'erreur
-	@RequestMapping(method = RequestMethod.GET, path = "/creer?erreur")
-	public ModelAndView erreurCreation() {
-		return creerEmploye();
-	}
 
 	// page d'affichage des employés
 	@RequestMapping(method = RequestMethod.GET, path = "/lister")
+	@Secured({ "ROLE_UTILISATEUR", "ROLE_ADMINISTRATEUR" })
 	public ModelAndView listerEmployes() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("employes/listerEmployes");

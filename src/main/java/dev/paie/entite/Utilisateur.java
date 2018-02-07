@@ -1,6 +1,8 @@
 package dev.paie.entite;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 @Entity
 public class Utilisateur extends Element {
@@ -12,6 +14,7 @@ public class Utilisateur extends Element {
 	private String nomUtilisateur;
 	private String motDePasse;
 	private Boolean estActif;
+	@Enumerated(EnumType.STRING)
 	private ROLES role;
 	
 	/**

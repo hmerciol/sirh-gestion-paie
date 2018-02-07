@@ -1,9 +1,7 @@
 package dev.paie.web.controller;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -36,6 +34,7 @@ public class BulletinSalaireController {
 
 	// page de création d'un bulletin
 	@RequestMapping(method = RequestMethod.GET, path = "/creer")
+	@Secured("ROLE_ADMINISTRATEUR")
 	public ModelAndView creerBulletin() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("bulletins/creerBulletin");
@@ -47,6 +46,7 @@ public class BulletinSalaireController {
 
 	// récupération d'un nouveau bulletin
 	@RequestMapping(method = RequestMethod.POST, path = "/creer")
+	@Secured("ROLE_ADMINISTRATEUR")
 	public String creerBulletin(@ModelAttribute("newBulletin") BulletinSalaire newBulletin) {
 		if(!bulSalValid.valider(newBulletin)) {
 			return "redirect:/mvc/bulletins/creer?erreur";
@@ -54,15 +54,10 @@ public class BulletinSalaireController {
 		bulSalRepo.save(newBulletin);
 		return "redirect:/mvc/bulletins/lister";
 	}
-	
-	// page d'erreur
-	@RequestMapping(method = RequestMethod.GET, path = "/creer?erreur")
-	public ModelAndView erreurCreation() {
-		return creerBulletin();
-	}
 
 	// page d'affichage des bulletins
 	@RequestMapping(method = RequestMethod.GET, path = "/lister")
+	@Secured({ "ROLE_UTILISATEUR", "ROLE_ADMINISTRATEUR" })
 	public ModelAndView listerBulletins() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("bulletins/listerBulletins");
@@ -73,6 +68,7 @@ public class BulletinSalaireController {
 	// page d'affichage d'un bulletin
 	@Transactional
 	@RequestMapping(method = RequestMethod.GET, path = "/visualiser/{idBul}")
+	@Secured({ "ROLE_UTILISATEUR", "ROLE_ADMINISTRATEUR" })
 	public ModelAndView visualiserBulletin(@PathVariable Integer idBul) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("bulletins/visualiserBulletin");
